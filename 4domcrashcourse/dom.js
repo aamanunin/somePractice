@@ -1,9 +1,11 @@
 
 var form = document.getElementById('addForm');
 var itemList = document.getElementById('items');
+var filter = document.getElementById('filter');
 
 form.addEventListener('submit', addItem);
 itemList.addEventListener('click', removeItem);
+filter.addEventListener('keyup', filterItems);
 
 function addItem (e) {
   e.preventDefault();
@@ -25,4 +27,16 @@ function removeItem (e) {
       e.target.parentNode.remove();
     }
   }
+}
+
+function filterItems (e) {
+  text = e.target.value.toLowerCase();
+  var items = document.getElementsByTagName('li');
+  [...items].forEach(item => {
+    if (item.firstChild.textContent.toLowerCase().indexOf(text) != -1) {
+      item.style.display = 'block';
+    } else {
+      item.style.display = 'none';
+    }
+  });
 }
